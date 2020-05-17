@@ -1,16 +1,25 @@
 # palestra_introducao
 
-A new Flutter application.
+Uma palestra interna no qual eu ministrei, no qual o assunto abordado foi flutter/dart.
 
-## Getting Started
+Carga Horaria: 8 Horas
+Instrutor: Iago Novoa
 
-This project is a starting point for a Flutter application.
+Parte 01:
+- Instalaçao dos frameworks
+- Setup da máquina
 
-A few resources to get you started if this is your first Flutter project:
+Introduçao:
+- Linguagem dart
+- O conceitos de Widgets
+- Statless vs statefull
+- Navegação entre telas
+- Packages/imagens
+Banco de dados
+- Consulta
+- Gravação de dados locais
+Api/Json
+- Crud
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Projeto pratico – Uma loja de roupa.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
