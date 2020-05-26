@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/repository/database/BaseCache.dart';
 import 'package:palestra_introducao/repository/model/User.dart';
-import 'package:palestra_introducao/scenes/list_shoes.dart';
+import 'package:palestra_introducao/scenes/user/list_user.dart';
 
-class ShoesWidget extends StatefulWidget {
+class UsersWidget extends StatefulWidget {
   @override
-  _ShoesWidgetState createState() => _ShoesWidgetState();
+  _UsersWidgetState createState() => _UsersWidgetState();
 }
 
-class _ShoesWidgetState extends State<ShoesWidget> {
+class _UsersWidgetState extends State<UsersWidget> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _name = new TextEditingController();
@@ -19,16 +19,13 @@ class _ShoesWidgetState extends State<ShoesWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    print(findAll('user'));
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shoes'),
+        title: Text('Users'),
         centerTitle: true,
       ),
       body: Padding(
@@ -44,7 +41,7 @@ class _ShoesWidgetState extends State<ShoesWidget> {
               _buildTextFormField(_cpf, 'Cpf', (val) => val.isEmpty ? 'Favor entrar com o CPF' : null,),
               SizedBox(height: 15,),
               RaisedButton(
-                  child: Text('Enviar'),
+                  child: Text('Salvar'),
                   onPressed: () {
                     if (_formKey.currentState.validate()){
 
@@ -63,7 +60,7 @@ class _ShoesWidgetState extends State<ShoesWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.list),
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ListShoes())),
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ListUsers())),
       ),
     );
   }

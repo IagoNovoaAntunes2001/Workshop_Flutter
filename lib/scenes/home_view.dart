@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/scenes/new_shoes.dart';
+import 'package:palestra_introducao/repository/Repository.dart';
+import 'package:palestra_introducao/scenes/shoes/new_shoe.dart';
+import 'package:palestra_introducao/scenes/user/new_user.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -8,6 +10,10 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   var contador = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +47,22 @@ class _HomeWidgetState extends State<HomeWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
+                  builder: (context) => UsersWidget(),
+                ),
+              );
+            },
+            child: Text('New User'),
+          ),
+          FlatButton(
+            child: Text('New Shoe'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
                   builder: (context) => ShoesWidget(),
                 ),
               );
             },
-            child: Text('Button'),
           ),
         ],
       ),

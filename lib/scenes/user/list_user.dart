@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:palestra_introducao/repository/database/BaseCache.dart';
 import 'package:palestra_introducao/repository/model/User.dart';
 
-class ListShoes extends StatefulWidget {
+class ListUsers extends StatefulWidget {
   @override
-  _ListShoesState createState() => _ListShoesState();
+  _ListUsersState createState() => _ListUsersState();
 }
 
-class _ListShoesState extends State<ListShoes> {
-
+class _ListUsersState extends State<ListUsers> {
   Future userFuture;
   User user;
   int quantitityUser = 0;
@@ -29,7 +28,7 @@ class _ListShoesState extends State<ListShoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista shoes'),
+        title: Text('List Users'),
         centerTitle: true,
       ),
       body: listWidget(),
@@ -42,15 +41,16 @@ class _ListShoesState extends State<ListShoes> {
       child: Container(
         child: FutureBuilder(
           future: userFuture,
-          builder: (context, snapshot){
-            switch(snapshot.connectionState){
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
               case ConnectionState.active:
+                return Text('ativo');
               case ConnectionState.waiting:
                 return Text('Esperando os dados');
               case ConnectionState.done:
                 return ListView.builder(
-                  itemCount: quantitityUser,
-                    itemBuilder: (context, index){
+                    itemCount: quantitityUser,
+                    itemBuilder: (context, index) {
                       return Card(
                         color: Colors.grey[200],
                         child: ListTile(
@@ -60,8 +60,7 @@ class _ListShoesState extends State<ListShoes> {
                           subtitle: Text(snapshot.data[index]['cpf']),
                         ),
                       );
-                    }
-                );
+                    });
               default:
                 return Text('Default');
             }
