@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/repository/BaseCache.dart';
+import 'package:palestra_introducao/repository/database/BaseCache.dart';
 import 'package:palestra_introducao/repository/model/User.dart';
+import 'package:palestra_introducao/scenes/list_shoes.dart';
 
 class ShoesWidget extends StatefulWidget {
   @override
@@ -18,7 +19,9 @@ class _ShoesWidgetState extends State<ShoesWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(findAll('User'));
+
+    print(findAll('user'));
+
   }
 
   @override
@@ -51,13 +54,16 @@ class _ShoesWidgetState extends State<ShoesWidget> {
                           Navigator.pop(context);
                         else
                           print('error');
-
                       });
                     }
                   }),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.list),
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ListShoes())),
       ),
     );
   }

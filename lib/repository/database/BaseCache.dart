@@ -19,9 +19,7 @@ Future<int> save(String table, User user) async {
 
 Future<List<Map>> findAll(String table) async {
   final Database db = await getDatabase();
-  List<Map> list = await db.rawQuery('SELECT * FROM $table');
-  print(list);
-  return list;
+  return await db.rawQuery('SELECT * FROM $table');
 }
 
 Map<String, dynamic> _toMap(User user) {
