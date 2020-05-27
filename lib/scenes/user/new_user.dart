@@ -47,8 +47,16 @@ class _UsersWidgetState extends State<UsersWidget> {
 
                       User user = User(name:_name.text, email: _email.text, cpf: _cpf.text);
                       save('User', user).then((o) {
-                        if (o != null || o > 0)
-                          Navigator.pop(context);
+                        if (o != null || o > 0) {
+                          setState(() {
+                            _name.text = '';
+                            _email.text = '';
+                            _cpf.text = '';
+                          });
+
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => ListUsers()));
+                        }
                         else
                           print('error');
                       });

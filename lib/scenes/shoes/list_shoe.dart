@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
 import 'package:palestra_introducao/repository/model/ShoesRequest.dart';
-import 'package:palestra_introducao/repository/model/ShoesResponse.dart';
+import 'package:palestra_introducao/scenes/shoes/update_shoe.dart';
 
 class ListShoesWidget extends StatefulWidget {
   @override
@@ -59,24 +59,47 @@ class _ListShoesWidgetState extends State<ListShoesWidget> {
                       trailing: Text(
                         'R\$ ${data['price'].toString()}',
                         style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w900
-                        ),
+                            color: Colors.green,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w900),
                       ),
-                      title: Text(data['title'],  style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.w600
-                      ),),
-                      subtitle: Text(data['description'],  style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w900
-                      ),),
+                      title: Text(
+                        data['title'],
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(
+                        data['description'],
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w900),
+                      ),
                       isThreeLine: true,
                       enabled: data['active'],
-                      onTap: () => print(data['title']),
+                      onTap: () async {
+                        final route = await Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => UpdateShoesWidget(data)
+                        ));
+
+                        setState(() {
+                          if (route == true || route == null) {
+                            shoesFuture = _getShoes();
+                          }
+                        });
+
+                      },
+                      onLongPress: () async {
+                        var request = await delete('/products', data['_id']);
+                        print(request);
+                        if (request == 200) {
+                          setState(() {
+                            shoesFuture = _getShoes();
+                          });
+                        }
+                      },
                     ),
                   );
                 },

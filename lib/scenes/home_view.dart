@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/repository/Repository.dart';
 import 'package:palestra_introducao/scenes/shoes/new_shoe.dart';
 import 'package:palestra_introducao/scenes/user/new_user.dart';
 

@@ -10,7 +10,6 @@ class ShoesWidget extends StatefulWidget {
 }
 
 class _ShoesWidgetState extends State<ShoesWidget> {
-
   final _formKey = GlobalKey<FormState>();
   TextEditingController _title = TextEditingController();
   TextEditingController _slug = TextEditingController();
@@ -32,22 +31,56 @@ class _ShoesWidgetState extends State<ShoesWidget> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                _buildTextFormField(_title, 'Titutlo', (val) => val.isEmpty ? 'Por favor digitar o titulo' : null, TextInputType.text),
-                _buildTextFormField(_slug, 'Slug', (val) => val.isEmpty ? 'Por favor digitar o slug' : null, TextInputType.text),
-                _buildTextFormField(_description, 'Descrição', (val) => val.isEmpty ? 'Por favor digitar a Descrição' : null, TextInputType.text),
-                _buildTextFormField(_price, 'Preço', (val) => val.isEmpty ? 'Por favor digitar o preço' : null, TextInputType.number),
-                _buildTextFormField(_image, 'Url', (val) => val.isEmpty ? 'Por favor digitar a Url' : null, TextInputType.text),
+                _buildTextFormField(
+                    _title,
+                    'Titutlo',
+                    (val) => val.isEmpty ? 'Por favor digitar o titulo' : null,
+                    TextInputType.text),
+                _buildTextFormField(
+                    _slug,
+                    'Slug',
+                    (val) => val.isEmpty ? 'Por favor digitar o slug' : null,
+                    TextInputType.text),
+                _buildTextFormField(
+                    _description,
+                    'Descrição',
+                    (val) =>
+                        val.isEmpty ? 'Por favor digitar a Descrição' : null,
+                    TextInputType.text),
+                _buildTextFormField(
+                    _price,
+                    'Preço',
+                    (val) => val.isEmpty ? 'Por favor digitar o preço' : null,
+                    TextInputType.number),
+                _buildTextFormField(
+                    _image,
+                    'Url',
+                    (val) => val.isEmpty ? 'Por favor digitar a Url' : null,
+                    TextInputType.text),
                 RaisedButton(
                   child: Text('Send'),
                   onPressed: () {
                     if (!_formKey.currentState.validate()) return;
 
-                    var request = ShoesRequest(title: _title.text, slug: _slug.text, description: _description.text, price: int.parse(_price.text), imageUrl: _image.text);
+                    var request = ShoesRequest(
+                        title: _title.text,
+                        slug: _slug.text,
+                        description: _description.text,
+                        price: int.parse(_price.text),
+                        imageUrl: _image.text);
                     var map = post('/products', request.toJson());
                     print(map.then((o) {
                       if (o == 201 || o == "201") {
-                        print('foi');
-                        Navigator.pop(context);
+                        _title.text = '';
+                        _description.text = '';
+                        _slug.text = '';
+                        _price.text = '';
+                        _image.text = '';
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ListShoesWidget()));
                       }
                     }));
                   },
@@ -58,7 +91,8 @@ class _ShoesWidgetState extends State<ShoesWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ListShoesWidget())),
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ListShoesWidget())),
         backgroundColor: Colors.blueAccent,
         splashColor: Colors.grey,
         child: Icon(Icons.line_style),
@@ -66,7 +100,8 @@ class _ShoesWidgetState extends State<ShoesWidget> {
     );
   }
 
-  TextFormField _buildTextFormField(TextEditingController controller, String title, Function validator, TextInputType type) {
+  TextFormField _buildTextFormField(TextEditingController controller,
+      String title, Function validator, TextInputType type) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(hintText: title),
@@ -74,5 +109,4 @@ class _ShoesWidgetState extends State<ShoesWidget> {
       validator: validator,
     );
   }
-
 }

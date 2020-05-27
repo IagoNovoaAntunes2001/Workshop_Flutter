@@ -23,3 +23,27 @@ Future<dynamic> get(String path) async {
     print(response.data);
   }
 }
+
+Future<dynamic> put(path, Map<String, dynamic> parameters, id) async {
+  print('Parametors');
+  print(parameters);
+  Response response = await _service().put(path + "/" + id, data: parameters);
+  if (response.statusCode == 200) {
+    print(response.data);
+    return response.statusCode;
+  } else {
+    print(response.data);
+    return response.statusCode;
+  }
+}
+
+Future<dynamic> delete(path, id) async {
+  Response response = await _service().delete(path, data: {"id" : id});
+  if (response.statusCode == 200) {
+    print(response.data);
+    return response.statusCode;
+  } else {
+    print(response.data);
+    return response.statusCode;
+  }
+}
