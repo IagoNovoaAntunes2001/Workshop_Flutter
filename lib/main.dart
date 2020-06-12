@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
     // Agora ao ínves de um Container estamos usando o widget MaterialApp
     // o qual é configurado para dar à nossa app um tema Material
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // O widget Scaffold define o layouta da home
-        home: HomeWidget(),
+      debugShowCheckedModeBanner: false,
+      // O widget Scaffold define o layouta da home
+      home: HomeWidget(),
     );
   }
 }

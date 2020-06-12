@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:palestra_introducao/model/ShoesRequest.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
-import 'package:palestra_introducao/repository/model/ShoesRequest.dart';
 import 'package:palestra_introducao/scenes/shoes/list_shoe.dart';
 
 class ShoesWidget extends StatefulWidget {

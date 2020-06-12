@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/repository/database/BaseCache.dart';
-import 'package:palestra_introducao/repository/model/User.dart';
+import 'package:palestra_introducao/common/components/custom_text_form_field.dart';
+import 'package:palestra_introducao/model/User.dart';
+import 'package:palestra_introducao/repository/cache/BaseCache.dart';
 import 'package:palestra_introducao/scenes/user/list_user.dart';
 
 class UsersWidget extends StatefulWidget {
@@ -34,18 +35,36 @@ class _UsersWidgetState extends State<UsersWidget> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              _buildTextFormField(_name, 'Name', (val) => val.isEmpty ? 'Favor entrar com o nome' : null,),
-              SizedBox(height: 15,),
-              _buildTextFormField(_email, 'E-mail', (val) => val.isEmpty ? 'Favor entrar com o E-mail' : null,),
-              SizedBox(height: 15,),
-              _buildTextFormField(_cpf, 'Cpf', (val) => val.isEmpty ? 'Favor entrar com o CPF' : null,),
-              SizedBox(height: 15,),
+              TextFormWidget(
+                _name,
+                'Name',
+                    (val) => val.isEmpty ? 'Favor entrar com o nome' : null,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormWidget(
+                _email,
+                'E-mail',
+                    (val) => val.isEmpty ? 'Favor entrar com o E-mail' : null,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormWidget(
+                _cpf,
+                'Cpf',
+                    (val) => val.isEmpty ? 'Favor entrar com o CPF' : null,
+              ),
+              SizedBox(
+                height: 15,
+              ),
               RaisedButton(
                   child: Text('Salvar'),
                   onPressed: () {
-                    if (_formKey.currentState.validate()){
-
-                      User user = User(name:_name.text, email: _email.text, cpf: _cpf.text);
+                    if (_formKey.currentState.validate()) {
+                      User user = User(
+                          name: _name.text, email: _email.text, cpf: _cpf.text);
                       save('User', user).then((o) {
                         if (o != null || o > 0) {
                           setState(() {
@@ -53,11 +72,12 @@ class _UsersWidgetState extends State<UsersWidget> {
                             _email.text = '';
                             _cpf.text = '';
                           });
-
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => ListUsers()));
-                        }
-                        else
+                          print(o);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListUsers()));
+                        } else
                           print('error');
                       });
                     }
@@ -68,17 +88,10 @@ class _UsersWidgetState extends State<UsersWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.list),
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ListUsers())),
+        onPressed: () =>
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ListUsers())),
       ),
-    );
-  }
-
-  TextFormField _buildTextFormField(TextEditingController controller, String title, Function validator) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(hintText: title),
-      keyboardType: TextInputType.text,
-      validator: validator,
     );
   }
 }

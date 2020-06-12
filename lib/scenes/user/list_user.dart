@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/repository/database/BaseCache.dart';
-import 'package:palestra_introducao/repository/model/User.dart';
+import 'package:palestra_introducao/model/User.dart';
+import 'package:palestra_introducao/repository/cache/BaseCache.dart';
 
 class ListUsers extends StatefulWidget {
   @override

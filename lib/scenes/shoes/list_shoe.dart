@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
-import 'package:palestra_introducao/repository/model/ShoesRequest.dart';
 import 'package:palestra_introducao/scenes/shoes/update_shoe.dart';
 
 class ListShoesWidget extends StatefulWidget {
@@ -84,6 +83,8 @@ class _ListShoesWidgetState extends State<ListShoesWidget> {
                           builder: (context) => UpdateShoesWidget(data)
                         ));
 
+                        print(route);
+
                         setState(() {
                           if (route == true || route == null) {
                             shoesFuture = _getShoes();
@@ -91,6 +92,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget> {
                         });
 
                       },
+
                       onLongPress: () async {
                         var request = await delete('/products', data['_id']);
                         print(request);

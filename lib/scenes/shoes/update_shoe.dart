@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:palestra_introducao/model/ShoesRequest.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
-import 'package:palestra_introducao/repository/model/ShoesRequest.dart';
 
 class UpdateShoesWidget extends StatefulWidget {
   dynamic data;
@@ -12,6 +12,8 @@ class UpdateShoesWidget extends StatefulWidget {
 }
 
 class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
+
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController _title = TextEditingController();
   TextEditingController _slug = TextEditingController();
@@ -110,7 +112,6 @@ class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
                             '/products', request.toJson(), widget.data['_id']);
                         result.then((o) {
                           if (o == 200) {
-
                             final alertDialog = AlertDialog(
                               title: Text('Atualizado com sucesso!'),
                               content: Text('aqui'),
@@ -125,7 +126,8 @@ class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
                               ],
                             );
 
-                            showDialog(context: context, builder: (_) => alertDialog);
+                            showDialog(
+                                context: context, builder: (_) => alertDialog);
                           }
                         });
                       },

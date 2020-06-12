@@ -1,4 +1,4 @@
-import 'package:palestra_introducao/repository/model/User.dart';
+import 'package:palestra_introducao/model/User.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
