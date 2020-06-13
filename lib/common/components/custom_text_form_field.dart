@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class TextFormWidget extends StatefulWidget {
 
-  TextEditingController controller;
-  String title;
-  Function validator;
+  TextEditingController _controller;
+  String _title;
+  Function _validator;
+  bool isEnabled;
 
-  TextFormWidget(this.controller, this.title, this.validator);
+  TextFormWidget(this._controller, this._title, this._validator, {this.isEnabled = true});
 
   @override
   _TextFormWidgetState createState() => _TextFormWidgetState();
@@ -16,10 +17,11 @@ class _TextFormWidgetState extends State<TextFormWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: widget.controller,
-      decoration: InputDecoration(hintText: widget.title),
+      enabled: widget.isEnabled ?? true,
+      controller: widget._controller,
+      decoration: InputDecoration(hintText: widget._title),
       keyboardType: TextInputType.text,
-      validator: widget.validator,
-    );;
+      validator: widget._validator,
+    );
   }
 }

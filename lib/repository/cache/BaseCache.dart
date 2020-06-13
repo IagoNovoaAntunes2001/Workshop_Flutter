@@ -2,30 +2,34 @@ import 'package:palestra_introducao/model/User.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<Database> getDatabase() async {
-  final String path = join(await getDatabasesPath(), 'teste.1.db');
-  return openDatabase(path, onCreate: (db, version) async {
-    await db.execute('CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, cpf TEXT)');
-  },
-    version: 1,
-  );
+abstract class ICache {
+  Future<int> save(String table, User row);
+
+  Future<List<Map>> find(String table);
 }
 
-Future<int> save(String table, User user) async {
-  final Database db = await getDatabase();
-  Map<String, dynamic> userMap = _toMap(user);
-  return db.insert(table, userMap);
-}
+class BaseCache implements ICache {
+  Future<Database> getDatabase() async {
+    final String path = join(await getDatabasesPath(), 'teste.1.db');
+    return openDatabase(
+      path,
+      onCreate: (db, version) async {
+        await db.execute(
+            'CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, cpf TEXT)');
+      },
+      version: 1,
+    );
+  }
 
-Future<List<Map>> findAll(String table) async {
-  final Database db = await getDatabase();
-  return await db.rawQuery('SELECT * FROM $table');
-}
+  @override
+  Future<List<Map>> find(String table) async {
+    final Database db = await getDatabase();
+    return await db.rawQuery('SELECT * FROM $table');
+  }
 
-Map<String, dynamic> _toMap(User user) {
-  Map<String, dynamic> userMap = new Map();
-  userMap['name'] = user.name;
-  userMap['email'] = user.email;
-  userMap['cpf'] = user.cpf;
-  return userMap;
+  @override
+  Future<int> save(String table, User row) async {
+    final Database db = await getDatabase();
+    return await db.insert(table, row.toJson());
+  }
 }
