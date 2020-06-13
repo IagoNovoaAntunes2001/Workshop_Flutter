@@ -10,6 +10,15 @@ class RegisterShoePresenter {
     this._repository = Injector().repositoryShoe;
   }
 
-
+  register(title, slug, description, price, image) async {
+    this._view.showLoading();
+    var request = await _repository.register(title, slug, description, int.parse(price), image);
+    this._view.hideLoading();
+    if (request.message == "Product has saved with success!") {
+      this._view.registerSuccess();
+    } else {
+      this._view.showError(request.message);
+    }
+  }
 
 }

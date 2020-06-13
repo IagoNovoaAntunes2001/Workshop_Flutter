@@ -1,8 +1,6 @@
-
-import 'package:palestra_introducao/model/ShoesRequest.dart';
+import 'package:palestra_introducao/model/shoe/ShoesResult.dart';
 
 abstract class RegisterShoeRepositoryContract {
-
-  Future register(ShoesRequest shoesRequest);
-
+  Future<ShoesResult> register(
+      String title, String slug, String description, int price, String image);
 }

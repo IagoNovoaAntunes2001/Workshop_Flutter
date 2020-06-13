@@ -4,4 +4,8 @@ abstract class RegisterShoeContract {
 
   void showError(String error);
 
+  void showLoading();
+
+  void hideLoading();
+
 }

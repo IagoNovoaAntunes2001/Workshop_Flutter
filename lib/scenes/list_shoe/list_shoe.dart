@@ -18,7 +18,8 @@ class _ListShoesWidgetState extends State<ListShoesWidget> {
   }
 
   _getShoes() async {
-    var map = await get('/products');
+    //var map = await get('/products');
+    var map = '';
     print(map);
     mapLength = map.length;
     print(map.length);
@@ -92,16 +93,15 @@ class _ListShoesWidgetState extends State<ListShoesWidget> {
                         });
 
                       },
-
-                      onLongPress: () async {
-                        var request = await delete('/products', data['_id']);
-                        print(request);
-                        if (request == 200) {
-                          setState(() {
-                            shoesFuture = _getShoes();
-                          });
-                        }
-                      },
+                      //onLongPress: () async {
+                        //var request = await delete('/products', data['_id']);
+                        //print(request);
+                        //if (request == 200) {
+                         // setState(() {
+                            //shoesFuture = _getShoes();
+                          //});
+                       // }
+                      //},
                     ),
                   );
                 },

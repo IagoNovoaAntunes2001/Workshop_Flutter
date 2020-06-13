@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
 import 'package:palestra_introducao/common/components/custom_buttom.dart';
 import 'package:palestra_introducao/common/components/custom_text_form_field.dart';
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe.dart';
@@ -19,6 +20,9 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
   TextEditingController _description = TextEditingController();
   TextEditingController _price = TextEditingController();
   TextEditingController _image = TextEditingController();
+
+  bool isLoading = false;
+  bool isFieldsOn = true;
 
   @override
   void initState() {
@@ -75,28 +79,33 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
           _title,
           'Titutlo',
           (val) => val.isEmpty ? 'Por favor digitar o titulo' : null,
+          isEnabled: isFieldsOn,
         ),
         TextFormWidget(
           _slug,
           'Slug',
           (val) => val.isEmpty ? 'Por favor digitar o slug' : null,
+          isEnabled: isFieldsOn,
         ),
         TextFormWidget(
           _description,
           'Descrição',
           (val) => val.isEmpty ? 'Por favor digitar a Descrição' : null,
+          isEnabled: isFieldsOn,
         ),
         TextFormWidget(_price, 'Preço',
             (val) => val.isEmpty ? 'Por favor digitar o preço' : null,
+            isEnabled: isFieldsOn,
             type: TextInputType.number),
         TextFormWidget(
           _image,
           'Url',
           (val) => val.isEmpty ? 'Por favor digitar a Url' : null,
+          isEnabled: isFieldsOn,
         ),
         CustomButton(
           'Enviar',
-          isLoading: false,
+          isLoading: isLoading,
           onPressed: _onPressedButton(context),
           backGroundColor: Colors.blueGrey,
         ),
@@ -108,42 +117,36 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
     return () {
       if (!_formKey.currentState.validate()) return;
 
-      /*var request = ShoesRequest(
-          title: _title.text,
-          slug: _slug.text,
-          description: _description.text,
-          price: int.parse(_price.text),
-          imageUrl: _image.text);
-       */
-
-      //var map = post('/products', request.toJson());
-
-      /*print(
-        map.then(
-          (o) {
-            if (o == 201 || o == "201") {
-              _title.text = '';
-              _description.text = '';
-              _slug.text = '';
-              _price.text = '';
-              _image.text = '';
-
-              Navigator.push(
-                  ctx, MaterialPageRoute(builder: (ctx) => ListShoesWidget()));
-            }
-          },
-        ),
-      );*/
+      this._presenter.register(_title.text, _slug.text, _description.text, _price.text, _image.text);
     };
   }
 
   @override
-  void registerSuccess() {
-    // TODO: implement registerSuccess
+  void registerSuccess() async {
+    var alertDialog = CustomAlertDialogWidget('Sucesso', 'Tênis registrado com sucesso!');
+    await showDialog(context: context, builder: (_) => alertDialog);
+    Navigator.push(context, MaterialPageRoute(builder: (_) => ListShoesWidget()));
   }
 
   @override
   void showError(String error) {
-    // TODO: implement showError
+    var alertDialog = CustomAlertDialogWidget('Erro', '$error!');
+    showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  @override
+  void hideLoading() {
+    setState(() {
+      isLoading = false;
+      isFieldsOn = true;
+    });
+  }
+
+  @override
+  void showLoading() {
+    setState(() {
+      isLoading = false;
+      isFieldsOn = true;
+    });
   }
 }

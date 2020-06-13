@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/model/ShoesRequest.dart';
+import 'package:palestra_introducao/model/shoe/ShoesRequest.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
 
 class UpdateShoesWidget extends StatefulWidget {
@@ -95,6 +95,7 @@ class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
                   SizedBox(
                     height: 25,
                   ),
+                  /*
                   SizedBox(
                     height: 50,
                     width: MediaQuery.of(context).size.width,
@@ -108,8 +109,9 @@ class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
                             description: _description.text,
                             price: int.parse(_price.text),
                             imageUrl: _image.text);
-                        var result = put(
-                            '/products', request.toJson(), widget.data['_id']);
+                        /*var result = put(
+                            '/products', request.toJson(), widget.data['_id']);*/
+
                         result.then((o) {
                           if (o == 200) {
                             final alertDialog = AlertDialog(
@@ -134,7 +136,7 @@ class _UpdateShoesWidgetState extends State<UpdateShoesWidget> {
                       child: Text('Concluir'),
                       color: Colors.blueAccent,
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

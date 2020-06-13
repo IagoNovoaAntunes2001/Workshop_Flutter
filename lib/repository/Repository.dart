@@ -6,20 +6,27 @@ class Repository {
     dio.options.baseUrl = 'http://10.0.2.2:3000';
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 3000;
+    dio.options.headers = {"Content-Type": "application/json"};
     return dio;
   }
 
   Future<dynamic> post(String path, Map<String, dynamic> parameters) async {
-    FormData formData = new FormData.fromMap(parameters);
-    Response response = await this._service().post(path, data: formData);
+    Response response = await this._service().post(path, data: parameters);
+    print('aqui');
+    print(response);
     if (response.statusCode == 201) {
-      return response.statusCode;
+      print(response.data);
+      return response.data;
     } else {
-      return response.statusCode;
+      print('aqui');
+      print(response.statusCode);
+      print(response.data);
+      return response.data;
     }
   }
 }
 
+/*
 Dio _service() {
   Dio dio = new Dio();
   dio.options.baseUrl = 'http://10.0.2.2:3000';
@@ -31,6 +38,10 @@ Dio _service() {
 Future<dynamic> post(String path, Map<String, dynamic> parameters) async {
   Response response = await _service().post(path, data: parameters);
   if (response.statusCode == 201) {
+    print(response.data);
+    return response.statusCode;
+  } else {
+    print(response.data);
     return response.statusCode;
   }
 }
@@ -67,3 +78,4 @@ Future<dynamic> delete(path, id) async {
     return response.statusCode;
   }
 }
+ */
