@@ -10,17 +10,20 @@ class Repository {
     return dio;
   }
 
-  Future<dynamic> post(String path, Map<String, dynamic> parameters) async {
-    Response response = await this._service().post(path, data: parameters);
-    print('aqui');
-    print(response);
-    if (response.statusCode == 201) {
-      print(response.data);
+  Future<dynamic> get(String path) async {
+    Response response = await _service().get(path);
+    if (response.statusCode == 200) {
       return response.data;
     } else {
-      print('aqui');
-      print(response.statusCode);
-      print(response.data);
+      return response.data;
+    }
+  }
+
+  Future<dynamic> post(String path, Map<String, dynamic> parameters) async {
+    Response response = await this._service().post(path, data: parameters);
+    if (response.statusCode == 201) {
+      return response.data;
+    } else {
       return response.data;
     }
   }

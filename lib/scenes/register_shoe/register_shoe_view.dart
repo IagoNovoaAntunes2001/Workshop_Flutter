@@ -3,16 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
 import 'package:palestra_introducao/common/components/custom_buttom.dart';
 import 'package:palestra_introducao/common/components/custom_text_form_field.dart';
-import 'package:palestra_introducao/scenes/list_shoe/list_shoe.dart';
+import 'package:palestra_introducao/scenes/list_shoe/list_shoe_view.dart';
 import 'package:palestra_introducao/scenes/register_shoe/register_shoe_contract.dart';
 import 'package:palestra_introducao/scenes/register_shoe/register_shoe_presenter.dart';
 
-class ShoesWidget extends StatefulWidget {
+class RegisterShoeWidget extends StatefulWidget {
   @override
-  _ShoesWidgetState createState() => _ShoesWidgetState();
+  _RegisterShoeWidgetState createState() => _RegisterShoeWidgetState();
 }
 
-class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContract {
+class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
+    implements RegisterShoeContract {
   RegisterShoePresenter _presenter;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _title = TextEditingController();
@@ -44,8 +45,7 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
 
   Widget _buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ListShoesWidget())),
+      onPressed: () => _pushToListShoes(),
       backgroundColor: Colors.blueAccent,
       splashColor: Colors.grey,
       child: Icon(Icons.line_style),
@@ -95,8 +95,7 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
         ),
         TextFormWidget(_price, 'Preço',
             (val) => val.isEmpty ? 'Por favor digitar o preço' : null,
-            isEnabled: isFieldsOn,
-            type: TextInputType.number),
+            isEnabled: isFieldsOn, type: TextInputType.number),
         TextFormWidget(
           _image,
           'Url',
@@ -117,15 +116,31 @@ class _ShoesWidgetState extends State<ShoesWidget> implements RegisterShoeContra
     return () {
       if (!_formKey.currentState.validate()) return;
 
-      this._presenter.register(_title.text, _slug.text, _description.text, _price.text, _image.text);
+      this._presenter.register(
+          _title.text, _slug.text, _description.text, _price.text, _image.text);
     };
+  }
+
+  void _cleanFields() {
+    _title.text = '';
+    _slug.text = '';
+    _description.text = '';
+    _price.text = '';
+    _image.text = '';
   }
 
   @override
   void registerSuccess() async {
-    var alertDialog = CustomAlertDialogWidget('Sucesso', 'Tênis registrado com sucesso!');
+    var alertDialog =
+        CustomAlertDialogWidget('Sucesso', 'Tênis registrado com sucesso!');
     await showDialog(context: context, builder: (_) => alertDialog);
-    Navigator.push(context, MaterialPageRoute(builder: (_) => ListShoesWidget()));
+    _cleanFields();
+    _pushToListShoes();
+  }
+
+  void _pushToListShoes() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => ListShoesWidget()));
   }
 
   @override

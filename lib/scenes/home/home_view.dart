@@ -46,7 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UsersWidget(),
+                  builder: (context) => RegisterUserWidget(),
                 ),
               );
             },
@@ -58,7 +58,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ShoesWidget(),
+                  builder: (context) => RegisterShoeWidget(),
                 ),
               );
             },

@@ -6,12 +6,12 @@ import 'package:palestra_introducao/scenes/list_user/list_user_view.dart';
 import 'package:palestra_introducao/scenes/register_user/register_contract.dart';
 import 'package:palestra_introducao/scenes/register_user/register_presenter.dart';
 
-class UsersWidget extends StatefulWidget {
+class RegisterUserWidget extends StatefulWidget {
   @override
-  _UsersWidgetState createState() => _UsersWidgetState();
+  _RegisterUserWidgetState createState() => _RegisterUserWidgetState();
 }
 
-class _UsersWidgetState extends State<UsersWidget> implements RegisterContract {
+class _RegisterUserWidgetState extends State<RegisterUserWidget> implements RegisterContract {
   RegisterPresenter _presenter;
   final _formKey = GlobalKey<FormState>();
 
@@ -113,6 +113,12 @@ class _UsersWidgetState extends State<UsersWidget> implements RegisterContract {
     };
   }
 
+  void _cleanFields() {
+    _name.text = '';
+    _email.text = '';
+    _cpf.text = '';
+  }
+
   @override
   void hideLoading() {
     setState(() {
@@ -131,11 +137,12 @@ class _UsersWidgetState extends State<UsersWidget> implements RegisterContract {
   void registerSuccess() async {
     var alertDialog = CustomAlertDialogWidget('Sucesso', 'Usuário registrado!');
     await showDialog(context: context, builder: (_) => alertDialog);
+    _cleanFields();
     _pushToList();
   }
 
-  Future _pushToList() {
-    return Navigator.push(
+  void _pushToList() {
+    Navigator.push(
         context, MaterialPageRoute(builder: (_) => ListUserWidget()));
   }
 
