@@ -1,7 +1,7 @@
 import 'package:palestra_introducao/common/di/Injection.dart';
 import 'package:palestra_introducao/model/User.dart';
 import 'package:palestra_introducao/repository/cache/BaseCache.dart';
-import 'package:palestra_introducao/scenes/register/register_contract.dart';
+import 'package:palestra_introducao/scenes/register_user/register_contract.dart';
 
 class RegisterPresenter {
   RegisterContract _view;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/common/components/loadingWidget.dart';
 
-class CustomButtom extends StatefulWidget {
+class CustomButton extends StatefulWidget {
   final String _title;
   final Function onPressed;
   final Color backGroundColor;
@@ -11,7 +11,7 @@ class CustomButtom extends StatefulWidget {
   Alignment alignment;
   bool isLoading = false;
 
-  CustomButtom(this._title,
+  CustomButton(this._title,
       {this.onPressed,
       this.backGroundColor,
       this.height,
@@ -21,10 +21,10 @@ class CustomButtom extends StatefulWidget {
       this.isLoading});
 
   @override
-  _CustomButtomState createState() => _CustomButtomState();
+  _CustomButtonState createState() => _CustomButtonState();
 }
 
-class _CustomButtomState extends State<CustomButtom> {
+class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,5 +1,4 @@
 abstract class RegisterContract {
-
   void registerSuccess();
 
   void showError(String error);
@@ -7,5 +6,4 @@ abstract class RegisterContract {
   void showLoading();
 
   void hideLoading();
-
 }

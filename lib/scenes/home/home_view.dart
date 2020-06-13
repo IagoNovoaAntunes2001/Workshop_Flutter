@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:palestra_introducao/scenes/shoes/new_shoe.dart';
-import 'package:palestra_introducao/scenes/register/register_view.dart';
+import 'package:palestra_introducao/scenes/register_shoe/register_shoe_view.dart';
+import 'package:palestra_introducao/scenes/register_user/register_user_view.dart';
 
 class HomeWidget extends StatefulWidget {
   @override

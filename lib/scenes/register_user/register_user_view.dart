@@ -3,8 +3,8 @@ import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
 import 'package:palestra_introducao/common/components/custom_buttom.dart';
 import 'package:palestra_introducao/common/components/custom_text_form_field.dart';
 import 'package:palestra_introducao/scenes/list_user/list_user_view.dart';
-import 'package:palestra_introducao/scenes/register/register_contract.dart';
-import 'package:palestra_introducao/scenes/register/register_presenter.dart';
+import 'package:palestra_introducao/scenes/register_user/register_contract.dart';
+import 'package:palestra_introducao/scenes/register_user/register_presenter.dart';
 
 class UsersWidget extends StatefulWidget {
   @override
@@ -95,20 +95,22 @@ class _UsersWidgetState extends State<UsersWidget> implements RegisterContract {
         SizedBox(
           height: 15,
         ),
-        CustomButtom(
+        CustomButton(
           'Salvar',
           isLoading: isLoading,
-          onPressed: _onPressedButtom,
+          onPressed: _onPressedButton,
           backGroundColor: Colors.blueGrey,
         ),
       ],
     );
   }
 
-  void _onPressedButtom() {
-    if (!_formKey.currentState.validate()) return;
+  Function _onPressedButton() {
+    return() {
+      if (!_formKey.currentState.validate()) return;
 
-    this._presenter.save(_name.text, _email.text, _cpf.text);
+      return this._presenter.save(_name.text, _email.text, _cpf.text);
+    };
   }
 
   @override

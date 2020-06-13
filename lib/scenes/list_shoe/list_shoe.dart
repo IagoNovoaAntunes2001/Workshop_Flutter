@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/repository/Repository.dart';
-import 'package:palestra_introducao/scenes/shoes/update_shoe.dart';
+import 'package:palestra_introducao/scenes/update_shoe/update_shoe.dart';
 
 class ListShoesWidget extends StatefulWidget {
   @override

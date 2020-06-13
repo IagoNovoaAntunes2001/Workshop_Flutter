@@ -1,5 +1,25 @@
 import 'package:dio/dio.dart';
 
+class Repository {
+  Dio _service() {
+    Dio dio = new Dio();
+    dio.options.baseUrl = 'http://10.0.2.2:3000';
+    dio.options.connectTimeout = 10000;
+    dio.options.receiveTimeout = 3000;
+    return dio;
+  }
+
+  Future<dynamic> post(String path, Map<String, dynamic> parameters) async {
+    FormData formData = new FormData.fromMap(parameters);
+    Response response = await this._service().post(path, data: formData);
+    if (response.statusCode == 201) {
+      return response.statusCode;
+    } else {
+      return response.statusCode;
+    }
+  }
+}
+
 Dio _service() {
   Dio dio = new Dio();
   dio.options.baseUrl = 'http://10.0.2.2:3000';
@@ -38,7 +58,7 @@ Future<dynamic> put(path, Map<String, dynamic> parameters, id) async {
 }
 
 Future<dynamic> delete(path, id) async {
-  Response response = await _service().delete(path, data: {"id" : id});
+  Response response = await _service().delete(path, data: {"id": id});
   if (response.statusCode == 200) {
     print(response.data);
     return response.statusCode;

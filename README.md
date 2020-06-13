@@ -3,12 +3,14 @@
 Uma palestra interna no qual eu ministrei, assunto abordado foi flutter/dart.
 
 Carga Horaria: 8 Horas
+
 Instrutor: Iago Novoa
 
 Parte 01:
 - Instalaçao dos frameworks
 - Setup da máquina
 
+Parte 02:
 Introduçao:
 - Linguagem dart
 - O conceitos de Widgets
@@ -16,12 +18,19 @@ Introduçao:
 - Navegação entre telas
 - Statless vs statefull
 
+Parte 03:
 Banco de dados
 - Consulta
 - Gravação de dados locais
 
+Parte 04:
 Api/Json
 - Crud
+
+Parte 05:
+Projeto pratico – Uma loja de roupa.
+
+
 
 Links e referência
 - Como instalar o flutter na documentação(Windows, macOS, Linux): https://flutter.dev/docs/get-started/install
@@ -43,7 +52,4 @@ Canais Youtube(citei no workshop que eu recomendaria alguns)
  - Flutterando: https://www.youtube.com/user/jacobaraujo7 (PT-BR)
  - Ninja: https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg/videos (EN-NA)
  
-
-
-Projeto pratico – Uma loja de roupa.
 
