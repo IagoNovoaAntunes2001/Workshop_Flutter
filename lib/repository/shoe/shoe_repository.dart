@@ -17,4 +17,11 @@ class ShoeRepository extends Repository implements ShoeRepositoryContract {
     var request = await this.get('/products') as List<dynamic>;
     return request.map((o) => ShoesResult.fromJson(o)).toList();
   }
+
+  @override
+  Future<GenericResult> deleteShoe(String id) async {
+    var request = await this.delete('/products', id);
+    return GenericResult.fromJson(request);
+  }
+
 }

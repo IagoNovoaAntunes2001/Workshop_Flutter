@@ -6,4 +6,7 @@ abstract class ShoeRepositoryContract {
       String title, String slug, String description, int price, String image);
 
   Future<List<ShoesResult>> find();
+
+  Future<GenericResult> deleteShoe(String id);
+
 }

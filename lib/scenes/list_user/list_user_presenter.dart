@@ -12,7 +12,6 @@ class ListUserPresenter {
   }
 
   listUser() async {
-    print('aqui');
     this._view.showLoading();
     var request = await _baseCache.find('user');
     this._view.hideLoading();

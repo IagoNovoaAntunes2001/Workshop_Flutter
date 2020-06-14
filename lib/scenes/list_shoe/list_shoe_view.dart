@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
+import 'package:palestra_introducao/common/components/custom_view.dart';
 import 'package:palestra_introducao/common/components/loadingWidget.dart';
 import 'package:palestra_introducao/model/shoe/ShoesResult.dart';
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe_contract.dart';
@@ -14,8 +16,8 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
     implements ListShoeContract {
   ListShoePresenter _presenter;
 
-  bool isLoading = true;
   List<ShoesResult> listShoes = new List<ShoesResult>();
+  int _atIndex = 0;
 
   @override
   void initState() {
@@ -36,15 +38,48 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
   }
 
   Widget _buildBodyOfView() {
-    return isLoading
-        ? LoadingWidget()
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: _buildFutureBuilder(),
+    );
+  }
+
+  Widget _buildFutureBuilder() {
+    return FutureBuilder(
+      future: this._presenter.findAll(),
+      builder: (context, snapshot) {
+        return _buildSwitchOfFuture(snapshot);
+      },
+    );
+  }
+
+  Widget _buildSwitchOfFuture(snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.done:
+        return _buildContainerOfFutre();
+      case ConnectionState.none:
+        return CustomViewWidget('Não há conexão.');
+        break;
+      case ConnectionState.waiting:
+        return LoadingWidget();
+        break;
+      case ConnectionState.active:
+        return CustomViewWidget('Ativo, sem dados.');
+        break;
+      default:
+        return CustomViewWidget('Ocorreu algum problema com a conexão');
+    }
+  }
+
+  Widget _buildContainerOfFutre() {
+    return listShoes.length == 0
+        ? CustomViewWidget('Não há usuários.')
         : Container(
-            padding: EdgeInsets.all(8.0),
-            child: _buildListView(),
+            child: _buildListViewBuilder(),
           );
   }
 
-  Widget _buildListView() {
+  ListView _buildListViewBuilder() {
     return ListView.builder(
       itemCount: listShoes.length,
       itemBuilder: (context, index) {
@@ -91,42 +126,37 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
           ),
         );
       },
-      //onLongPress: () async {
-      //var request = await delete('/products', data['_id']);
-      //print(request);
-      //if (request == 200) {
-      // setState(() {
-      //shoesFuture = _getShoes();
-      //});
-      // }
-      //},
+      onLongPress: _onLongPressDelete(index),
     );
   }
 
-  @override
-  void hideLoading() {
-    setState(() {
-      isLoading = false;
-    });
+  Function _onLongPressDelete(int index) {
+    return () async {
+      this._presenter.deleteShoe(listShoes[index].id);
+      _atIndex = index;
+    };
   }
 
   @override
   void showError(String error) {
-    print(error);
+    var alertDialog = CustomAlertDialogWidget('Erro', '$error');
+    showDialog(context: context, builder: (_) => alertDialog);
   }
 
   @override
   void showListUser(List<ShoesResult> listResults) {
-    listShoes = listResults;
-    print(listShoes[0].id);
-    //print(listShoes);
-    print(listShoes.length);
+    if (listResults.length > 0) {
+      listShoes = listResults;
+    }
   }
 
   @override
-  void showLoading() {
+  void showSuccess(String message) {
+    var alertDialog =
+        CustomAlertDialogWidget('Sucesso', 'Produto deletado com sucesso!');
+    showDialog(context: context, builder: (_) => alertDialog);
     setState(() {
-      isLoading = true;
+      listShoes.removeAt(_atIndex);
     });
   }
 }

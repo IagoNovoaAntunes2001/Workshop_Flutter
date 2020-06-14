@@ -11,13 +11,21 @@ class ListShoePresenter {
   }
 
   findAll() async {
-    this._view.showLoading();
     var request = await _repository.find();
-    this._view.hideLoading();
     if (request != null) {
       this._view.showListUser(request);
     } else {
-      this._view.showError('Erro');
+      this._view.showError('Houve um erro ao carregar a lista.');
+    }
+  }
+
+  deleteShoe(id) async {
+    var request = await this._repository.deleteShoe(id);
+
+    if (request.message == 'Product has delete with success!') {
+      this._view.showSuccess('Produto deletado com sucesso');
+    } else {
+      this._view.showError('Erro ao deletar o produto');
     }
   }
 }
