@@ -83,11 +83,17 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
           (val) => val.isEmpty ? 'Por favor digitar o titulo' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(
           _slug,
           'Slug',
           (val) => val.isEmpty ? 'Por favor digitar o slug' : null,
           isEnabled: isFieldsOn,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
         ),
         TextFormWidget(
           _description,
@@ -95,17 +101,26 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
           (val) => val.isEmpty ? 'Por favor digitar a Descrição' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(_price, 'Preço',
             (val) => val.isEmpty ? 'Por favor digitar o preço' : null,
             isEnabled: isFieldsOn, type: TextInputType.number),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(
           _image,
           'Url',
           (val) => val.isEmpty ? 'Por favor digitar a Url' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         CustomButton(
-          'Enviar',
+          'Registrar',
           isLoading: isLoading,
           onPressed: _onPressedButton,
           backGroundColor: Colors.blueGrey,
@@ -131,18 +146,19 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
 
   @override
   void registerSuccess() async {
-    var alertDialog = _buildAlertDialogSuccess();
+    var alertDialog = _buildAlertDialog(
+        'Sucesso!', 'Tenis registrado com sucesso', Colors.green);
     await showDialog(context: context, builder: (_) => alertDialog);
     _cleanFields();
     _pushToListShoes();
   }
 
-  Widget _buildAlertDialogSuccess() {
+  Widget _buildAlertDialog(title, message, color) {
     return CustomAlertDialogWidget(
-      'Sucesso',
-      'Tenis registrado com sucesso!',
+      '$title',
+      '$message',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.green,
+      fistColor: color,
       onPressedFirstButton: () => Navigator.pop(context),
     );
   }
@@ -154,18 +170,9 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
 
   @override
   void showError(String error) {
-    var alertDialog = _buildAlertDialogError(error);
+    var alertDialog =
+        _buildAlertDialog('Erro!', 'Ocorreu algum erro: $error!', Colors.red);
     showDialog(context: context, builder: (_) => alertDialog);
-  }
-
-  Widget _buildAlertDialogError(String error) {
-    return CustomAlertDialogWidget(
-      'Erro',
-      'Ocorreu algum erro: $error!',
-      titleButtonFirst: 'Ok',
-      fistColor: Colors.red,
-      onPressedFirstButton: () => Navigator.pop(context),
-    );
   }
 
   @override

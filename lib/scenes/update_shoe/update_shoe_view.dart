@@ -89,11 +89,17 @@ class _UpdateShoeWidgetState extends State<UpdateShoeWidget>
           (val) => val.isEmpty ? 'Por favor digitar o titulo' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(
           _slug,
           'Slug',
           (val) => val.isEmpty ? 'Por favor digitar o slug' : null,
           isEnabled: isFieldsOn,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
         ),
         TextFormWidget(
           _description,
@@ -101,15 +107,18 @@ class _UpdateShoeWidgetState extends State<UpdateShoeWidget>
           (val) => val.isEmpty ? 'Por favor digitar a Descrição' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
         TextFormWidget(_price, 'Preço',
             (val) => val.isEmpty ? 'Por favor digitar o preço' : null,
             isEnabled: isFieldsOn, type: TextInputType.number),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
         TextFormWidget(
           _image,
           'Url',
           (val) => val.isEmpty ? 'Por favor digitar a Url' : null,
           isEnabled: isFieldsOn,
         ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
         CustomButton(
           'Editar',
           isLoading: isLoading,
@@ -128,20 +137,24 @@ class _UpdateShoeWidgetState extends State<UpdateShoeWidget>
   }
 
   @override
-  void showError(String error) {}
-
-  @override
-  void showSuccess() {
-    var alertDialog = _buildAlertDialogSuccess();
+  void showError(String error) {
+    var alertDialog = _buildAlertDialog('Erro!', error, Colors.green);
     showDialog(context: context, builder: (_) => alertDialog);
   }
 
-  Widget _buildAlertDialogSuccess() {
+  @override
+  void showSuccess() {
+    var alertDialog = _buildAlertDialog(
+        'Sucesso!', 'Tenis alterado com sucesso.', Colors.green);
+    showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  Widget _buildAlertDialog(title, message, color) {
     return CustomAlertDialogWidget(
-      'Sucesso',
-      'Tenis alterado com sucesso!',
+      '$title',
+      '$message',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.green,
+      fistColor: color,
       onPressedFirstButton: () {
         Navigator.of(context).pop();
         Navigator.of(context).pop();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
+import 'package:palestra_introducao/common/components/custom_list_tile.dart';
 import 'package:palestra_introducao/common/components/custom_view.dart';
 import 'package:palestra_introducao/common/components/loadingWidget.dart';
 import 'package:palestra_introducao/model/shoe/ShoesResult.dart';
@@ -81,7 +82,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
           );
   }
 
-  ListView _buildListViewBuilder() {
+  Widget _buildListViewBuilder() {
     return ListView.builder(
       itemCount: listShoes.length,
       itemBuilder: (context, index) {
@@ -99,30 +100,14 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
   }
 
   Widget _buildListTileOfCard(int index, BuildContext context) {
-    return ListTile(
-      leading: Image.network('${listShoes[index].imageUrl},'),
-      trailing: Text(
-        'R\$: ${listShoes[index].price}',
-        style: TextStyle(
-            color: Colors.green, fontSize: 16.0, fontWeight: FontWeight.w900),
-      ),
-      title: Text(
-        listShoes[index].title,
-        style: TextStyle(
-            color: Colors.black, fontSize: 24.0, fontWeight: FontWeight.w600),
-      ),
-      subtitle: Text(
-        listShoes[index].description,
-        style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 15.0,
-            fontWeight: FontWeight.w900),
-      ),
-      isThreeLine: true,
-      enabled: listShoes[index].active,
-      onTap: _onTap(index),
-      onLongPress: _onLongPressDelete(index),
-    );
+    return CustomLisTileWidget(
+        '${listShoes[index].imageUrl}',
+        '${listShoes[index].price}',
+        '${listShoes[index].title}',
+        subtitle: '${listShoes[index].description}',
+        enabled: listShoes[index].active,
+        onTap: _onTap(index),
+        onLongPress: _onLongPressDelete(index));
   }
 
   Function _onTap(int index) {
