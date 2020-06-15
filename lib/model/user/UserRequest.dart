@@ -1,9 +1,9 @@
-class User {
+class UserRequest {
   String _name;
   String _email;
   String _cpf;
 
-  User({String name, String email, String cpf}) {
+  UserRequest({String name, String email, String cpf}) {
     this._name = name;
     this._email = email;
     this._cpf = cpf;
@@ -16,7 +16,7 @@ class User {
   String get cpf => _cpf;
   set cpf(String cpf) => _cpf = cpf;
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserRequest.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
     _email = json['email'];
     _cpf = json['cpf'];

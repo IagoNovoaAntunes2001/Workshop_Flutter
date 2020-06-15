@@ -103,7 +103,7 @@ Widget exampleWidgetsUtils() {
   );
 }
 
-Widget StackExample() {
+Widget stackExample() {
   return Container(
     width: double.infinity,
     height: double.infinity,

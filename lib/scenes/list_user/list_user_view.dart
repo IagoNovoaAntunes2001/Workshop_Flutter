@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
+import 'package:palestra_introducao/common/components/custom_view.dart';
 import 'package:palestra_introducao/common/components/loadingWidget.dart';
+import 'package:palestra_introducao/model/user/UserResult.dart';
 import 'package:palestra_introducao/scenes/list_user/list_user_contract.dart';
 import 'package:palestra_introducao/scenes/list_user/list_user_presenter.dart';
 
@@ -13,7 +15,7 @@ class _ListUserWidgetState extends State<ListUserWidget>
     implements ListUserContract {
   ListUserPresenter _presenter;
   Future userFuture;
-  List<Map> listUser = new List<Map>();
+  List<UserResult> listUser = new List<UserResult>();
 
   bool isLoading = false;
 
@@ -32,27 +34,54 @@ class _ListUserWidgetState extends State<ListUserWidget>
           title: Text('List Users'),
           centerTitle: true,
         ),
-        body: _listWidget(),
+        body: _buildContainerOfView(),
       ),
     );
   }
 
-  Widget _listWidget() {
-    return isLoading
-        ? LoadingWidget()
-        : Padding(
-            padding: EdgeInsets.all(8.0),
-            child: _buildContainerOfList(),
-          );
-  }
-
-  Widget _buildContainerOfList() {
+  Widget _buildContainerOfView() {
     return Container(
-      child: _buildListViewOfCotainer(),
+      padding: EdgeInsets.all(16.0),
+      child: _buildFutureBuilder(),
     );
   }
 
-  Widget _buildListViewOfCotainer() {
+  Widget _buildFutureBuilder() {
+    return FutureBuilder(
+      future: this._presenter.listUser(),
+      builder: (context, snapshot) {
+        return _buildSwitchOfFuture(snapshot);
+      },
+    );
+  }
+
+  Widget _buildSwitchOfFuture(snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.done:
+        return _buildContainerOfFutre();
+      case ConnectionState.none:
+        return CustomViewWidget('Não há conexão.');
+        break;
+      case ConnectionState.waiting:
+        return LoadingWidget();
+        break;
+      case ConnectionState.active:
+        return CustomViewWidget('Ativo, sem dados.');
+        break;
+      default:
+        return CustomViewWidget('Ocorreu algum problema com a conexão');
+    }
+  }
+
+  Widget _buildContainerOfFutre() {
+    return listUser.length == 0
+        ? CustomViewWidget('Não há itens cadastrados.')
+        : Container(
+            child: _buildListViewBuilder(),
+          );
+  }
+
+  Widget _buildListViewBuilder() {
     return ListView.builder(
       itemCount: listUser.length,
       itemBuilder: (context, index) {
@@ -71,33 +100,17 @@ class _ListUserWidgetState extends State<ListUserWidget>
   Widget _buildListTileOfCard(index) {
     return ListTile(
       onTap: () => print('Click'),
-      title: Text(listUser[index]['email']),
-      leading: Text(listUser[index]['name']),
-      subtitle: Text(listUser[index]['cpf']),
+      title: Text(listUser[index].email),
+      leading: Text(listUser[index].name),
+      subtitle: Text(listUser[index].cpf),
     );
   }
 
   @override
-  void hideLoading() {
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
-  void showListUser(List<Map> list) {
+  void showListUser(List<UserResult> list) {
     print('listagem');
-    setState(() {
-      listUser = list;
-    });
+    listUser = list;
     print(listUser);
-  }
-
-  @override
-  void showLoading() {
-    setState(() {
-      isLoading = true;
-    });
   }
 
   @override

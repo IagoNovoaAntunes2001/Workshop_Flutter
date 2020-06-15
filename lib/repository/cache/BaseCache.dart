@@ -1,11 +1,12 @@
-import 'package:palestra_introducao/model/user/User.dart';
+import 'package:palestra_introducao/model/user/UserRequest.dart';
+import 'package:palestra_introducao/model/user/UserResult.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class ICache {
-  Future<int> save(String table, User row);
+  Future<int> save(String table, UserRequest row);
 
-  Future<List<Map>> find(String table);
+  Future<List<UserResult>> find(String table);
 }
 
 class BaseCache implements ICache {
@@ -22,13 +23,14 @@ class BaseCache implements ICache {
   }
 
   @override
-  Future<List<Map>> find(String table) async {
+  Future<List<UserResult>> find(String table) async {
     final Database db = await getDatabase();
-    return await db.rawQuery('SELECT * FROM $table');
+    var result = await db.rawQuery('SELECT * FROM $table');
+    return result.map((f) => UserResult.fromJson(f)).toList();
   }
 
   @override
-  Future<int> save(String table, User row) async {
+  Future<int> save(String table, UserRequest row) async {
     final Database db = await getDatabase();
     return await db.insert(table, row.toJson());
   }

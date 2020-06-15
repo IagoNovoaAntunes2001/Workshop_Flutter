@@ -1,4 +1,4 @@
-import 'package:palestra_introducao/model/user/User.dart';
+import 'package:palestra_introducao/model/user/UserRequest.dart';
 import 'package:palestra_introducao/repository/cache/BaseCache.dart';
 import 'package:palestra_introducao/repository/shoe/shoe_repository.dart';
 
@@ -13,7 +13,7 @@ class Injector {
 
   ICache get baseCache => new BaseCache();
 
-  User get user => new User();
+  UserRequest get user => new UserRequest();
 
   ShoeRepository get repositoryShoe => new ShoeRepository();
 

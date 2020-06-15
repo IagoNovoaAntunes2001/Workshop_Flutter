@@ -12,9 +12,7 @@ class ListUserPresenter {
   }
 
   listUser() async {
-    this._view.showLoading();
     var request = await _baseCache.find('user');
-    this._view.hideLoading();
     if (request != null) {
       this._view.showListUser(request);
     } else {

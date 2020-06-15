@@ -1,10 +1,8 @@
+import 'package:palestra_introducao/model/user/UserResult.dart';
+
 abstract class ListUserContract {
 
-  void showListUser(List<Map> request);
-
-  void showLoading();
-
-  void hideLoading();
+  void showListUser(List<UserResult> resultUsers);
 
   void showError(String error);
 

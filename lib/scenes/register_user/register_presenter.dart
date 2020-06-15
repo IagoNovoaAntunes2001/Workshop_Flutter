@@ -1,5 +1,5 @@
 import 'package:palestra_introducao/common/di/Injection.dart';
-import 'package:palestra_introducao/model/user/User.dart';
+import 'package:palestra_introducao/model/user/UserRequest.dart';
 import 'package:palestra_introducao/repository/cache/BaseCache.dart';
 import 'package:palestra_introducao/scenes/register_user/register_contract.dart';
 
@@ -7,7 +7,7 @@ class RegisterPresenter {
   RegisterContract _view;
 
   ICache _baseCache = Injector.singleton.baseCache;
-  User _user;
+  UserRequest _user;
 
   RegisterPresenter(this._view) {
     this._user = Injector().user;
