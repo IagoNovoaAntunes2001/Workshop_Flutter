@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomLisTileWidget extends StatefulWidget {
-  String _image, _price, _title, subtitle, _desc;
+  String leading, price, title, subtitle;
   bool enabled;
   Function onTap, onLongPress;
 
   CustomLisTileWidget(
-      this._image, this._price, this._title, {this.subtitle = '', this.enabled = true, this.onTap, this.onLongPress});
+      {this.leading, this.price, this.title, this.subtitle = '', this.enabled = true, this.onTap, this.onLongPress});
 
   @override
   _CustomLisTileWidgetState createState() => _CustomLisTileWidgetState();
@@ -16,14 +16,14 @@ class _CustomLisTileWidgetState extends State<CustomLisTileWidget> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network('${widget._image}'),
+      leading: Image.network('${widget.leading}'),
       trailing: Text(
-        'R\$: ${widget._price}',
+        'R\$: ${double.parse(widget.price).toStringAsFixed(2)}',
         style: TextStyle(
             color: Colors.green, fontSize: 16.0, fontWeight: FontWeight.w900),
       ),
       title: Text(
-        '${widget._title}',
+        '${widget.title}',
         style: TextStyle(
             color: Colors.black, fontSize: 24.0, fontWeight: FontWeight.w600),
       ),

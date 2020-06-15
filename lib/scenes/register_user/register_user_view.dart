@@ -77,21 +77,27 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget>
           (val) => val.isEmpty ? 'Favor entrar com o nome' : null,
           isEnabled: isFieldsOn,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(
           _email,
           'E-mail',
           (val) => val.isEmpty ? 'Favor entrar com o E-mail' : null,
           isEnabled: isFieldsOn,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         TextFormWidget(
           _cpf,
           'Cpf',
           (val) => val.isEmpty ? 'Favor entrar com o CPF' : null,
           isEnabled: isFieldsOn,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         CustomButton(
           'Salvar',
           isLoading: isLoading,

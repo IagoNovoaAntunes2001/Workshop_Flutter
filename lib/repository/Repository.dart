@@ -4,7 +4,7 @@ import 'package:palestra_introducao/repository/Repository_contract.dart';
 class Repository implements RepositoryContract {
   Dio _service() {
     Dio dio = new Dio();
-    dio.options.baseUrl = 'http://10.0.2.2:3000';
+    dio.options.baseUrl = 'https://app-api-workshop-flutter.herokuapp.com';
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 3000;
     dio.options.headers = {"Content-Type": "application/json"};

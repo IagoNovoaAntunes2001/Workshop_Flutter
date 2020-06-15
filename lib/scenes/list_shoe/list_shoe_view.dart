@@ -101,9 +101,9 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   Widget _buildListTileOfCard(int index, BuildContext context) {
     return CustomLisTileWidget(
-        '${listShoes[index].imageUrl}',
-        '${listShoes[index].price}',
-        '${listShoes[index].title}',
+        leading: '${listShoes[index].imageUrl}',
+        price: '${listShoes[index].price}',
+        title: '${listShoes[index].title}',
         subtitle: '${listShoes[index].description}',
         enabled: listShoes[index].active,
         onTap: _onTap(index),
@@ -147,11 +147,11 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   @override
   void showError(String error) {
-    var alertDialog = _buildAlertDialogSuccess();
+    var alertDialog = _buildAlertDialogFail();
     showDialog(context: context, builder: (_) => alertDialog);
   }
 
-  Widget _buildAlertDialogSuccess() {
+  Widget _buildAlertDialogFail() {
     return CustomAlertDialogWidget(
       'Erro',
       'Houve algum erro!',

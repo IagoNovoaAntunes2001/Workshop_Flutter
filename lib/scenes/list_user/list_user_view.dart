@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palestra_introducao/common/components/custom_alert_dialog.dart';
+import 'package:palestra_introducao/common/components/custom_list_tile.dart';
 import 'package:palestra_introducao/common/components/custom_view.dart';
 import 'package:palestra_introducao/common/components/loadingWidget.dart';
 import 'package:palestra_introducao/model/user/UserResult.dart';
@@ -98,19 +99,16 @@ class _ListUserWidgetState extends State<ListUserWidget>
   }
 
   Widget _buildListTileOfCard(index) {
-    return ListTile(
-      onTap: () => print('Click'),
-      title: Text(listUser[index].email),
-      leading: Text(listUser[index].name),
-      subtitle: Text(listUser[index].cpf),
+    return CustomLisTileWidget(
+      title: '${listUser[index].email}',
+      leading: '${listUser[index].name}',
+      subtitle: '${listUser[index].cpf}',
     );
   }
 
   @override
   void showListUser(List<UserResult> list) {
-    print('listagem');
     listUser = list;
-    print(listUser);
   }
 
   @override
