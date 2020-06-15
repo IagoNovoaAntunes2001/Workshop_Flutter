@@ -24,4 +24,11 @@ class ShoeRepository extends Repository implements ShoeRepositoryContract {
     return GenericResult.fromJson(request);
   }
 
+  @override
+  Future<GenericResult> update(String title, String slug, String description, int price, String image, String id) async {
+    var request = ShoesRequest(title: title, slug: slug, description: description, price: price, imageUrl: image);
+    var map = await this.put('/products', request.toJson(), id);
+    return GenericResult.fromJson(map);
+  }
+
 }

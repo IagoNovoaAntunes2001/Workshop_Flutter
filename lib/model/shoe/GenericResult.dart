@@ -12,4 +12,11 @@ class GenericResult {
     data['message'] = this.message;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'GenericResult{message: $message}';
+  }
+
+
 }

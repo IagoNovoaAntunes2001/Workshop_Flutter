@@ -102,7 +102,17 @@ class _ListUserWidgetState extends State<ListUserWidget>
 
   @override
   void showError(String error) {
-    var alertDialog = CustomAlertDialogWidget('Erro', '$error');
+    var alertDialog = _buildAlertDialogError(error);
     showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  Widget _buildAlertDialogError(String error) {
+    return CustomAlertDialogWidget(
+      'Erro',
+      'Ocorreu algum erro: $error!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.red,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
   }
 }

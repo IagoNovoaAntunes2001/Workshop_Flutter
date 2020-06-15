@@ -11,7 +11,8 @@ class RegisterUserWidget extends StatefulWidget {
   _RegisterUserWidgetState createState() => _RegisterUserWidgetState();
 }
 
-class _RegisterUserWidgetState extends State<RegisterUserWidget> implements RegisterContract {
+class _RegisterUserWidgetState extends State<RegisterUserWidget>
+    implements RegisterContract {
   RegisterPresenter _presenter;
   final _formKey = GlobalKey<FormState>();
 
@@ -31,15 +32,17 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget> implements Regi
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Users'),
-          centerTitle: true,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Users'),
+            centerTitle: true,
+          ),
+          body: SingleChildScrollView(
+            child: _buildBodyOfView(context),
+          ),
+          floatingActionButton: _buildFloatingActionButtom(context),
         ),
-        body: SingleChildScrollView(
-          child: _buildBodyOfView(context),
-        ),
-        floatingActionButton: _buildFloatingActionButtom(context),
       ),
     );
   }
@@ -105,12 +108,10 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget> implements Regi
     );
   }
 
-  Function _onPressedButton() {
-    return() {
-      if (!_formKey.currentState.validate()) return;
+  _onPressedButton() {
+    if (!_formKey.currentState.validate()) return;
 
-      return this._presenter.save(_name.text, _email.text, _cpf.text);
-    };
+    return this._presenter.save(_name.text, _email.text, _cpf.text);
   }
 
   void _cleanFields() {
@@ -129,13 +130,25 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget> implements Regi
 
   @override
   void showError(String error) {
-    var alertDialog = CustomAlertDialogWidget('Erro', '$error!');
+    var alertDialog = CustomAlertDialogWidget(
+      'Erro',
+      'Ocorreu algum erro: $error!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.red,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
     showDialog(context: context, builder: (_) => alertDialog);
   }
 
   @override
   void registerSuccess() async {
-    var alertDialog = CustomAlertDialogWidget('Sucesso', 'Usuário registrado!');
+    var alertDialog = CustomAlertDialogWidget(
+      'Sucesso',
+      'Usuario registrado com sucesso!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.green,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
     await showDialog(context: context, builder: (_) => alertDialog);
     _cleanFields();
     _pushToList();

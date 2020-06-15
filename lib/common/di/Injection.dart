@@ -1,4 +1,4 @@
-import 'package:palestra_introducao/model/User.dart';
+import 'package:palestra_introducao/model/user/User.dart';
 import 'package:palestra_introducao/repository/cache/BaseCache.dart';
 import 'package:palestra_introducao/repository/shoe/shoe_repository.dart';
 

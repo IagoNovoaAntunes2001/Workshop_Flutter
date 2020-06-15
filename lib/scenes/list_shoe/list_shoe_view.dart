@@ -5,7 +5,7 @@ import 'package:palestra_introducao/common/components/loadingWidget.dart';
 import 'package:palestra_introducao/model/shoe/ShoesResult.dart';
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe_contract.dart';
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe_presenter.dart';
-import 'package:palestra_introducao/scenes/update_shoe/update_shoe.dart';
+import 'package:palestra_introducao/scenes/update_shoe/update_shoe_view.dart';
 
 class ListShoesWidget extends StatefulWidget {
   @override
@@ -28,12 +28,14 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Lista de tênis'),
-        centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Lista de tênis'),
+          centerTitle: true,
+        ),
+        body: _buildBodyOfView(),
       ),
-      body: _buildBodyOfView(),
     );
   }
 
@@ -73,7 +75,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   Widget _buildContainerOfFutre() {
     return listShoes.length == 0
-        ? CustomViewWidget('Não há usuários.')
+        ? CustomViewWidget('Não há itens cadastrados.')
         : Container(
             child: _buildListViewBuilder(),
           );
@@ -118,29 +120,60 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
       ),
       isThreeLine: true,
       enabled: listShoes[index].active,
-      onTap: () async {
-        final route = await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UpdateShoesWidget(listShoes[index]),
-          ),
-        );
-      },
+      onTap: _onTap(index),
       onLongPress: _onLongPressDelete(index),
     );
   }
 
+  Function _onTap(int index) {
+    return () async {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UpdateShoeWidget(listShoes[index]),
+        ),
+      );
+    };
+  }
+
   Function _onLongPressDelete(int index) {
     return () async {
-      this._presenter.deleteShoe(listShoes[index].id);
-      _atIndex = index;
+      var alert = _buildAlertDialog(index);
+      showDialog(context: context, builder: (_) => alert);
     };
+  }
+
+  Widget _buildAlertDialog(int index) {
+    return CustomAlertDialogWidget(
+      'Deseja mesmo excluir?',
+      'Por favor, confirme ou cancele esta ação',
+      titleButtonFirst: 'Cancelar',
+      fistColor: Colors.red,
+      secondColor: Colors.green,
+      onPressedFirstButton: () => Navigator.pop(context),
+      titleSecondButton: 'Confirmar',
+      onPressedSecondButton: () {
+        _atIndex = index;
+        this._presenter.deleteShoe(listShoes[index].id);
+        Navigator.pop(context);
+      },
+    );
   }
 
   @override
   void showError(String error) {
-    var alertDialog = CustomAlertDialogWidget('Erro', '$error');
+    var alertDialog = _buildAlertDialogSuccess();
     showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  Widget _buildAlertDialogSuccess() {
+    return CustomAlertDialogWidget(
+      'Erro',
+      'Houve algum erro!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.red,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
   }
 
   @override
@@ -152,8 +185,13 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   @override
   void showSuccess(String message) {
-    var alertDialog =
-        CustomAlertDialogWidget('Sucesso', 'Produto deletado com sucesso!');
+    var alertDialog = CustomAlertDialogWidget(
+      'Sucesso',
+      'Produto deletado com sucesso!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.green,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
     showDialog(context: context, builder: (_) => alertDialog);
     setState(() {
       listShoes.removeAt(_atIndex);

@@ -33,13 +33,15 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('New Shoe'),
-        centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('New Shoe'),
+          centerTitle: true,
+        ),
+        body: _buildBodyOfView(context),
+        floatingActionButton: _buildFloatingActionButton(context),
       ),
-      body: _buildBodyOfView(context),
-      floatingActionButton: _buildFloatingActionButton(context),
     );
   }
 
@@ -105,20 +107,18 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
         CustomButton(
           'Enviar',
           isLoading: isLoading,
-          onPressed: _onPressedButton(context),
+          onPressed: _onPressedButton,
           backGroundColor: Colors.blueGrey,
         ),
       ],
     );
   }
 
-  Function _onPressedButton(ctx) {
-    return () {
-      if (!_formKey.currentState.validate()) return;
+  _onPressedButton() {
+    if (!_formKey.currentState.validate()) return;
 
-      this._presenter.register(
-          _title.text, _slug.text, _description.text, _price.text, _image.text);
-    };
+    this._presenter.register(
+        _title.text, _slug.text, _description.text, _price.text, _image.text);
   }
 
   void _cleanFields() {
@@ -131,11 +131,20 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
 
   @override
   void registerSuccess() async {
-    var alertDialog =
-        CustomAlertDialogWidget('Sucesso', 'Tênis registrado com sucesso!');
+    var alertDialog = _buildAlertDialogSuccess();
     await showDialog(context: context, builder: (_) => alertDialog);
     _cleanFields();
     _pushToListShoes();
+  }
+
+  Widget _buildAlertDialogSuccess() {
+    return CustomAlertDialogWidget(
+      'Sucesso',
+      'Tenis registrado com sucesso!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.green,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
   }
 
   void _pushToListShoes() {
@@ -145,8 +154,18 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
 
   @override
   void showError(String error) {
-    var alertDialog = CustomAlertDialogWidget('Erro', '$error!');
+    var alertDialog = _buildAlertDialogError(error);
     showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  Widget _buildAlertDialogError(String error) {
+    return CustomAlertDialogWidget(
+      'Erro',
+      'Ocorreu algum erro: $error!',
+      titleButtonFirst: 'Ok',
+      fistColor: Colors.red,
+      onPressedFirstButton: () => Navigator.pop(context),
+    );
   }
 
   @override
