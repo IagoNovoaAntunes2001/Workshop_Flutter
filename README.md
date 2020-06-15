@@ -1,5 +1,7 @@
 # palestra_introducao
 
+Documentação geral do projeto:
+
 Uma palestra interna no qual eu ministrei, assunto abordado foi flutter/dart.
 
 Carga Horaria: 8 Horas
@@ -30,9 +32,10 @@ Api/Json
 Parte 05:
 Projeto pratico – Uma loja de roupa.
 
+Repositório da API que eu desenvolvi em MVC(a que foi utilizada no workshop): https://github.com/IagoNovoaAntunes2001/API-rest-NodeJs
+Link dela no Heroku(Eu explico melhor o que é o heroku e disnopobilizo os links lá no repositório da API): https://app-api-workshop-flutter.herokuapp.com/
 
-
-Links e referência
+Links e referência / Tecnologias utilizadas
 - Como instalar o flutter na documentação(Windows, macOS, Linux): https://flutter.dev/docs/get-started/install
 - Como instalar o flutter no visual studio code: http://www.macoratti.net/19/06/flut_intro1.htm#:~:text=A%20instala%C3%A7%C3%A3o%20do%20Flutter%20%C3%A9,pasta%20na%20sua%20m%C3%A1quina%20local
 - Como instalar o flutter no android studio: https://luizmarcus.com/android/instalando-e-configurando-o-flutter/#:~:text=Para%20adicionar%20esse%20plugin%2C%20acesse,criar%20seu%20primeiro%20projeto%20Flutter! 
@@ -41,7 +44,6 @@ Links e referência
 - Pub.dev(site de todos os pacotes): https://pub.dev/
 - MediaQuery(Uma documentação sobre): https://api.flutter.dev/flutter/widgets/MediaQuery-class.html
 - MVP(Arquitetura que vou utilizar para refatorar o projeto): https://www.youtube.com/watch?v=XHw4bBLM8Vk / https://www.devmedia.com.br/o-padrao-mvp-model-view-presenter/3043
-
 
 Pacotes utilizados no desenvolvimento
 - Sqflite(Banco de dados interno, conforme explicado no Workshop): https://pub.dev/packages/sqflite
