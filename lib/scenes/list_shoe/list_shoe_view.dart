@@ -8,6 +8,8 @@ import 'package:palestra_introducao/scenes/list_shoe/list_shoe_contract.dart';
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe_presenter.dart';
 import 'package:palestra_introducao/scenes/update_shoe/update_shoe_view.dart';
 
+import '../../extension/custom_color_scheme.dart';
+
 class ListShoesWidget extends StatefulWidget {
   @override
   _ListShoesWidgetState createState() => _ListShoesWidgetState();
@@ -93,7 +95,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
 
   Widget _buildCardOfListView(int index, BuildContext context) {
     return Card(
-      color: Colors.grey[100],
+      color: Theme.of(context).colorScheme.white70,
       margin: EdgeInsets.all(8.0),
       child: _buildListTileOfCard(index, context),
     );
@@ -133,8 +135,8 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
       'Deseja mesmo excluir?',
       'Por favor, confirme ou cancele esta ação',
       titleButtonFirst: 'Cancelar',
-      fistColor: Colors.red,
-      secondColor: Colors.green,
+      fistColor: Theme.of(context).colorScheme.danger,
+      secondColor: Theme.of(context).colorScheme.success,
       onPressedFirstButton: () => Navigator.pop(context),
       titleSecondButton: 'Confirmar',
       onPressedSecondButton: () {
@@ -156,7 +158,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
       'Erro',
       'Houve algum erro!',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.red,
+      fistColor: Theme.of(context).colorScheme.danger,
       onPressedFirstButton: () => Navigator.pop(context),
     );
   }
@@ -174,7 +176,7 @@ class _ListShoesWidgetState extends State<ListShoesWidget>
       'Sucesso',
       'Produto deletado com sucesso!',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.green,
+      fistColor: Theme.of(context).colorScheme.success,
       onPressedFirstButton: () => Navigator.pop(context),
     );
     showDialog(context: context, builder: (_) => alertDialog);

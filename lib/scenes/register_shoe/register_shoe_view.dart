@@ -6,6 +6,7 @@ import 'package:palestra_introducao/common/components/custom_text_form_field.dar
 import 'package:palestra_introducao/scenes/list_shoe/list_shoe_view.dart';
 import 'package:palestra_introducao/scenes/register_shoe/register_shoe_contract.dart';
 import 'package:palestra_introducao/scenes/register_shoe/register_shoe_presenter.dart';
+import '../../extension/custom_color_scheme.dart';
 
 class RegisterShoeWidget extends StatefulWidget {
   @override
@@ -48,8 +49,8 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
   Widget _buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () => _pushToListShoes(),
-      backgroundColor: Colors.blueAccent,
-      splashColor: Colors.grey,
+      backgroundColor: Theme.of(context).colorScheme.lightBlue,
+      splashColor: Theme.of(context).colorScheme.lightGrey,
       child: Icon(Icons.line_style),
     );
   }
@@ -123,7 +124,7 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
           'Registrar',
           isLoading: isLoading,
           onPressed: _onPressedButton,
-          backGroundColor: Colors.blueGrey,
+          backGroundColor: Theme.of(context).colorScheme.lightBlue,
         ),
       ],
     );
@@ -147,7 +148,7 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
   @override
   void registerSuccess() async {
     var alertDialog = _buildAlertDialog(
-        'Sucesso!', 'Tenis registrado com sucesso', Colors.green);
+        'Sucesso!', 'Tenis registrado com sucesso', Theme.of(context).colorScheme.success);
     await showDialog(context: context, builder: (_) => alertDialog);
     _cleanFields();
     _pushToListShoes();
@@ -171,7 +172,7 @@ class _RegisterShoeWidgetState extends State<RegisterShoeWidget>
   @override
   void showError(String error) {
     var alertDialog =
-        _buildAlertDialog('Erro!', 'Ocorreu algum erro: $error!', Colors.red);
+        _buildAlertDialog('Erro!', 'Ocorreu algum erro: $error!', Theme.of(context).colorScheme.danger);
     showDialog(context: context, builder: (_) => alertDialog);
   }
 

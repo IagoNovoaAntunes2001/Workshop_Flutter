@@ -5,6 +5,7 @@ import 'package:palestra_introducao/common/components/custom_text_form_field.dar
 import 'package:palestra_introducao/model/shoe/ShoesResult.dart';
 import 'package:palestra_introducao/scenes/update_shoe/update_shoe_contract.dart';
 import 'package:palestra_introducao/scenes/update_shoe/update_shoe_presenter.dart';
+import '../../extension/custom_color_scheme.dart';
 
 class UpdateShoeWidget extends StatefulWidget {
   ShoesResult data;
@@ -123,7 +124,7 @@ class _UpdateShoeWidgetState extends State<UpdateShoeWidget>
           'Editar',
           isLoading: isLoading,
           onPressed: _buildOnPressOfButton,
-          backGroundColor: Colors.blueGrey,
+          backGroundColor: Theme.of(context).colorScheme.lightBlue,
         ),
       ],
     );
@@ -138,14 +139,14 @@ class _UpdateShoeWidgetState extends State<UpdateShoeWidget>
 
   @override
   void showError(String error) {
-    var alertDialog = _buildAlertDialog('Erro!', error, Colors.green);
+    var alertDialog = _buildAlertDialog('Erro!', error, Theme.of(context).colorScheme.success);
     showDialog(context: context, builder: (_) => alertDialog);
   }
 
   @override
   void showSuccess() {
     var alertDialog = _buildAlertDialog(
-        'Sucesso!', 'Tenis alterado com sucesso.', Colors.green);
+        'Sucesso!', 'Tenis alterado com sucesso.', Theme.of(context).colorScheme.success);
     showDialog(context: context, builder: (_) => alertDialog);
   }
 

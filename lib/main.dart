@@ -21,10 +21,16 @@ class MyApp extends StatelessWidget {
     // Agora ao ínves de um Container estamos usando o widget MaterialApp
     // o qual é configurado para dar à nossa app um tema Material
     return MaterialApp(
+      theme: _buildThemeData(),
       debugShowCheckedModeBanner: false,
       // O widget Scaffold define o layouta da home
       home: SafeArea(child: HomeWidget()),
     );
+  }
+
+  ThemeData _buildThemeData() {
+    return ThemeData(
+        backgroundColor: Colors.white, primaryColor: Colors.blueGrey);
   }
 }
 
@@ -33,7 +39,10 @@ class MyApp extends StatelessWidget {
 Widget home() {
   return Padding(
     padding: const EdgeInsets.all(100.0),
-    child: Text('Home', style: TextStyle(fontSize: 42.0),),
+    child: Text(
+      'Home',
+      style: TextStyle(fontSize: 42.0),
+    ),
   );
 }
 
@@ -71,7 +80,10 @@ Widget exampleWidgetsUtils() {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text('Ola', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),),
+        Text(
+          'Ola',
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        ),
         RaisedButton(
           color: Colors.red,
           padding: EdgeInsets.all(24),
@@ -177,9 +189,9 @@ Widget containerExample() {
       color: Colors.black,
       child: Center(
           child: Text(
-            'Dentro do container',
-            style: TextStyle(color: Colors.pink),
-          )),
+        'Dentro do container',
+        style: TextStyle(color: Colors.pink),
+      )),
     ),
   );
 }

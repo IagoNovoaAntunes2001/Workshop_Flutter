@@ -6,6 +6,8 @@ import 'package:palestra_introducao/scenes/list_user/list_user_view.dart';
 import 'package:palestra_introducao/scenes/register_user/register_contract.dart';
 import 'package:palestra_introducao/scenes/register_user/register_presenter.dart';
 
+import '../../extension/custom_color_scheme.dart';
+
 class RegisterUserWidget extends StatefulWidget {
   @override
   _RegisterUserWidgetState createState() => _RegisterUserWidgetState();
@@ -102,7 +104,7 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget>
           'Salvar',
           isLoading: isLoading,
           onPressed: _onPressedButton,
-          backGroundColor: Colors.blueGrey,
+          backGroundColor: Theme.of(context).colorScheme.lightBlue,
         ),
       ],
     );
@@ -134,7 +136,7 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget>
       'Erro',
       'Ocorreu algum erro: $error!',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.red,
+      fistColor: Theme.of(context).colorScheme.danger,
       onPressedFirstButton: () => Navigator.pop(context),
     );
     showDialog(context: context, builder: (_) => alertDialog);
@@ -146,7 +148,7 @@ class _RegisterUserWidgetState extends State<RegisterUserWidget>
       'Sucesso',
       'Usuario registrado com sucesso!',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.green,
+      fistColor: Theme.of(context).colorScheme.success,
       onPressedFirstButton: () => Navigator.pop(context),
     );
     await showDialog(context: context, builder: (_) => alertDialog);

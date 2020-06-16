@@ -7,6 +7,8 @@ import 'package:palestra_introducao/model/user/UserResult.dart';
 import 'package:palestra_introducao/scenes/list_user/list_user_contract.dart';
 import 'package:palestra_introducao/scenes/list_user/list_user_presenter.dart';
 
+import '../../extension/custom_color_scheme.dart';
+
 class ListUserWidget extends StatefulWidget {
   @override
   _ListUserWidgetState createState() => _ListUserWidgetState();
@@ -93,7 +95,7 @@ class _ListUserWidgetState extends State<ListUserWidget>
 
   Widget _buildCardOfListBuilder(index) {
     return Card(
-      color: Colors.grey[200],
+      color: Theme.of(context).colorScheme.white,
       child: _buildListTileOfCard(index),
     );
   }
@@ -122,7 +124,7 @@ class _ListUserWidgetState extends State<ListUserWidget>
       'Erro',
       'Ocorreu algum erro: $error!',
       titleButtonFirst: 'Ok',
-      fistColor: Colors.red,
+      fistColor: Theme.of(context).colorScheme.danger,
       onPressedFirstButton: () => Navigator.pop(context),
     );
   }
